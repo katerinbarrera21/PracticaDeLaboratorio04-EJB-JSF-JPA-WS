@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:z="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+
+
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>
+        Listar Clientes
+    </title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+
+    <link href="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
+
+</h:head>
+
+<h:body>
+    <div class="wrapper ">
+
+        <div class="main-panel" id="main-panel">
+            <!-- Navbar -->
+
+            <h:form id="formGestionClientes">
+                <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
+                    <div class="container-fluid" style="background: #707d0b; padding: 17px;">
+                        <div class="navbar-wrapper">
+                            <div class="navbar-toggle">
+                                <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+                            </div>
+                            <a class="navbar-brand" style="font-size: 32px; color: #e89102; background: #4d5602; padding: 73px 122px 8px 10px;">Listar Facturas</a>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+                        <div class="collapse navbar-collapse justify-content-end" id="navigation">
+
+                             <ul class="navbar-nav">
+                            	<li class="nav-item">
+                                    <h:commandLink class="nav-link dropdown-toggle" id="gestionpedidos" value="Gestionar Pedidos" action="#{navigator.redireccionamiento('GestionarPedidos')}"></h:commandLink>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="labelFacturas" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i>Gestionar Facturas </i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <h:commandLink class="dropdown-item" value="Crear Factura" action="#{navigator.redireccionamiento('CreacionFactura')}" />
+                                        <h:commandLink class="dropdown-item" value="Listar Facturas" action="#{navigator.redireccionamiento('listarFactura')}" />
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="labelclientes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i>Gestionar Clientes </i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" >
+                                        <h:commandLink class="dropdown-item" value="Crear Cliente" action="#{navigator.redireccionamiento('crearCliente')}" />
+                                        <h:commandLink class="dropdown-item" value="Listar Clientes" action="#{navigator.redireccionamiento('listarClientes')}" />
+                                    </div>
+                                </li>
+                                <li class="nav-link dropdown-toggle">
+                                    <h:commandLink class="" value="Salir" action="#{navigator.redireccionamiento('salir')}"/>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </nav>
+
+            </h:form>
+
+            <!-- End Navbar -->
+            <div class="panel-header panel-header-sm">
+
+            </div>
+
+
+            <div class="content">
+
+
+                <div class="row">
+
+
+
+                    <div style="width: 100%;">
+                        <div class="card">
+                            <div class="card-header">
+
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+
+
+
+                                    <div id="filtros">
+                                        <h:form>
+                                            <h3>Buscar por cedula</h3>
+                                            <p:inputText class="form-control" id="ced" value="#{personaBean.cedula}" type="text" />
+                                            <p:commandButton class=" btn-primary btn-block" value="Buscar" action="#{personaBean.filtrarDatos}" update="formClientes" />
+                                            <p></p>
+                                        </h:form>
+                                    </div>
+
+                                    <div id="contenedorClientes">
+                                        <h:form id="formClientes">
+                                            <p:dataTable id="tablaClientes" value="#{personaBean.personas}" var="per" styleClass="tabla" headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+                                                <p:column>
+                                                    <f:facet name="header" id="proid">Cliente</f:facet>#{per.nombre} #{per.apellido}
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header" id="proid">Cedula</f:facet>#{per.cedula}
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header" id="proid">Direccion</f:facet>#{per.direccion}
+                                                </p:column>
+                                                <p:column>
+                                                    <f:facet name="header" id="proid">Telefono</f:facet>#{per.telefono}
+                                                </p:column>
+                                                <p:column>
+                                                    <p:commandButton class="btn-primary" value="Editar" actionListener="#{personaBean.cargarDatosEditarPersona(per)}" update="editarUsuario">
+                                                    </p:commandButton>
+                                                </p:column>
+                                                <p:column>
+                                                    <p:commandButton class=" btn-primary " value="Eliminar" actionListener="#{personaBean.eliminarUsuario(per)}" update="formClientes">
+                                                    </p:commandButton>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:form>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div style="width: 100%;">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="title">Editar Cliente</h5>
+                            </div>
+                            <div class="card-body" style="font-size: 17px; font-family: 'Montserrat';">
+                                <h:form id="editarUsuario">
+                                    <div class="row">
+                                        <div class="col-md-5 pr-1" style="margin-right: 39%;">
+                                            <div class="form-group">
+                                                <label>Empresa</label>
+                                                <input type="text" class="form-control" disabled="" placeholder="HOME" value="HOME" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 px-1">
+                                            <div class="form-group">
+                                                <label>Nombre:</label>
+                                                <p:inputText id="nombre" class="form-control" value="#{personaBean.nombre}" cols="2" z:placeholder="Nombre" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 pl-1">
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Apellido:</label>
+                                                <p:inputText class="form-control" id="apellido" value="#{personaBean.apellido}" cols="2" z:placeholder="Apellido" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 pr-1">
+                                            <div class="form-group">
+                                                <label>Cedula: </label>
+                                                <p:inputText class="form-control" id="cedula" value="#{personaBean.cedula}" cols="2" z:placeholder="Cedula" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 pl-1">
+                                            <div class="form-group">
+                                                <label>Direccion:</label>
+                                                <p:inputText class="form-control" id="direccion" value="#{personaBean.direccion}" cols="2" z:placeholder="Eg. Paute- Abdon Calderon y bahia San jose" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-4 pr-1">
+                                            <div class="form-group">
+                                                <label>Telefono:</label>
+                                                <p:inputText class="form-control" id="telefono" value="#{personaBean.telefono}" cols="2" z:placeholder="Movil o Convencional" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 px-1">
+                                            <div class="form-group">
+                                                <label>Correo: </label>
+                                                <p:inputText class="form-control" id="correo" value="#{personaBean.correo}" cols="2" z:placeholder="ejemplo@ste.com" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 pl-1">
+
+                                            <div class="form-group">
+                                                <p:commandButton class="btn btn-primary btn-block" value="Modificar Cliente" actionListener="#{personaBean.editarPersona}" update="formClientes editarUsuario" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </h:form>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+
+ <script src="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/js/core/jquery.min.js"></script>
+    <script src="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/js/core/popper.min.js"></script>
+    <script src="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/js/core/bootstrap.min.js"></script>
+    <script src="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
+
+
+</h:body>
+
+</html>

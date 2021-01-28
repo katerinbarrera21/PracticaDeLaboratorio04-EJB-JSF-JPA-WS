@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16116932475100" configfile="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/WebContent/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="private/employee/PrincipalEmpleadoJSF.xhtml" x="554" y="1050" id="pf16116973705241" referenceLink="//@navigationRule.9/@navigationCase.4/@toViewId|" outlinks="pf16116973705242 pf16116973705253 pf16116973705254 pf16116973705255 pf16116973705256 pf161169751764857" inlinks="pf16116973705257 pf16116973705258 pf16116973705259 pf161169737052510" path="/private/employee/PrincipalEmpleadoJSF.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/employee/CrearFactura.xhtml" x="1418" y="743" id="pf161169737052511" referenceLink="//@navigationRule.4/@navigationCase.0/@toViewId|" outlinks="pf161169737052512 pf161169737052513 pf161169737052514 pf161169737052515 pf161169755008459" inlinks="pf16116973705242 pf161169737052516 pf161169737052517 pf161169737052518" path="/private/employee/CrearFactura.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/employee/ListarFacturas.xhtml" x="1202" y="806" id="pf161169737052519" referenceLink="//@navigationRule.4/@navigationCase.1/@toViewId|" outlinks="pf161169737052516 pf161169737052520 pf161169737052521 pf161169737052522 pf161169755485060" inlinks="pf16116973705253 pf161169737052512 pf161169737052523 pf161169737052524" path="/private/employee/ListarFacturas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/employee/CrearUsuario.xhtml" x="986" y="625" id="pf161169737052625" referenceLink="//@navigationRule.4/@navigationCase.2/@toViewId|" outlinks="pf161169737052517 pf161169737052523 pf161169737052626 pf161169737052627 pf161169755968261" inlinks="pf16116973705254 pf161169737052513 pf161169737052520 pf161169737052628" path="/private/employee/CrearUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/employee/ListarClientes.xhtml" x="770" y="827" id="pf161169737052629" referenceLink="//@navigationRule.4/@fromViewId|" outlinks="pf161169737052518 pf161169737052524 pf161169737052628 pf161169737052630 pf161169760138862" inlinks="pf16116973705255 pf161169737052514 pf161169737052521 pf161169737052626" path="/private/employee/ListarClientes.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="menupricp.xhtml" x="1634" y="945" id="pf161169737052631" referenceLink="//@navigationRule.11/@navigationCase.1/@toViewId|" outlinks="pf161169737052632 pf161169737052633 pf161169737052634 pf161169737052735 pf16116973705257" inlinks="pf16116973705256 pf161169737052515 pf161169737052522 pf161169737052627 pf161169737052630 pf161169737052736 pf161169737052737 pf161169737052738 pf161169737052739 pf161169737052740 pf16117670933690" path="/menupricp.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="menuBodega1.xhtml" x="770" y="1295" id="pf161169737052741" referenceLink="//@navigationRule.9/@navigationCase.1/@toViewId|" outlinks="pf161169737052736 pf161169737052742 pf161169737052743 pf161169737052744 pf16116973705258" inlinks="pf161169737052632 pf161169737052745 pf161169737052746" path="/menuBodega1.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="menuBodega2.xhtml" x="338" y="1050" id="pf161169737052747" referenceLink="//@navigationRule.9/@navigationCase.2/@toViewId|" outlinks="pf161169737052737 pf161169737052745 pf161169737052748 pf161169737052749 pf16116973705259" inlinks="pf161169737052633 pf161169737052742 pf161169737052750" path="/menuBodega2.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="menuBodega3.xhtml" x="122" y="1294" id="pf161169737052751" referenceLink="//@navigationRule.9/@fromViewId|" outlinks="pf161169737052738 pf161169737052746 pf161169737052750 pf161169737052752 pf161169737052510" inlinks="pf161169737052634 pf161169737052743 pf161169737052748" path="/menuBodega3.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/administrador/InformeGeneral.xhtml" x="986" y="220" id="pf161169737052753" referenceLink="//@navigationRule.11/@navigationCase.0/@toViewId|" outlinks="pf161169737052754 pf161169737052739" inlinks="pf161169737052735 pf161169737052744 pf161169737052749 pf161169737052752 pf161169737052755" path="/private/administrador/InformeGeneral.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/administrador/GestionarBodegas.xhtml" x="770" y="422" id="pf161169737052756" referenceLink="//@navigationRule.11/@fromViewId|" outlinks="pf161169737052755 pf161169737052740" inlinks="pf161169737052754" path="/private/administrador/GestionarBodegas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="private/employee/ListarPedidos.xhtml" id="pf161169751764858" referenceLink="//@navigationRule.4/@navigationCase.4/@toViewId|" inlinks="pf161169751764857 pf161169755008459 pf161169755485060 pf161169755968261 pf161169760138862" path="/private/employee/ListarPedidos.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Empleado/ListarPedidos.xhtml" id="pf16117670933691" referenceLink="//@navigationRule.5/@fromViewId|" outlinks="pf16117670933692 pf16117670933693 pf16117670933694 pf16117670933690 pf16117670933695" path="/private/employee/ListarPedidos.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Empleado/CrearFactura.xhtml" id="pf16117670933696" referenceLink="//@navigationRule.5/@navigationCase.0/@toViewId|" inlinks="pf16117670933692" path="/private/employee/CrearFactura.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Empleado/ListarFacturas.xhtml" id="pf16117670933697" referenceLink="//@navigationRule.5/@navigationCase.1/@toViewId|" inlinks="pf16117670933693" path="/private/employee/ListarFacturas.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Empleado/CrearUsuario.xhtml" id="pf16117670933698" referenceLink="//@navigationRule.5/@navigationCase.2/@toViewId|" inlinks="pf16117670933694" path="/private/employee/CrearUsuario.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="Empleado/ListarClientes.xhtml" id="pf16117670933699" referenceLink="//@navigationRule.5/@navigationCase.4/@toViewId|" inlinks="pf16117670933695" path="/private/employee/ListarClientes.xhtml"/>
+  <links id="pf16116973705242" target="pf161169737052511" source="pf16116973705241" outcome="crearFactura"/>
+  <links id="pf16116973705253" target="pf161169737052519" source="pf16116973705241" outcome="listarFactura"/>
+  <links id="pf16116973705254" target="pf161169737052625" source="pf16116973705241" outcome="crearCliente"/>
+  <links id="pf16116973705255" target="pf161169737052629" source="pf16116973705241" outcome="listarClientes"/>
+  <links id="pf16116973705256" target="pf161169737052631" source="pf16116973705241" outcome="salir"/>
+  <links id="pf161169737052512" target="pf161169737052519" source="pf161169737052511" outcome="listarFactura"/>
+  <links id="pf161169737052513" target="pf161169737052625" source="pf161169737052511" outcome="crearCliente"/>
+  <links id="pf161169737052514" target="pf161169737052629" source="pf161169737052511" outcome="listarClientes"/>
+  <links id="pf161169737052515" target="pf161169737052631" source="pf161169737052511" outcome="salir"/>
+  <links id="pf161169737052516" target="pf161169737052511" source="pf161169737052519" outcome="crearFactura"/>
+  <links id="pf161169737052520" target="pf161169737052625" source="pf161169737052519" outcome="crearCliente"/>
+  <links id="pf161169737052521" target="pf161169737052629" source="pf161169737052519" outcome="listarClientes"/>
+  <links id="pf161169737052522" target="pf161169737052631" source="pf161169737052519" outcome="salir"/>
+  <links id="pf161169737052517" target="pf161169737052511" source="pf161169737052625" outcome="crearFactura"/>
+  <links id="pf161169737052523" target="pf161169737052519" source="pf161169737052625" outcome="listarFactura"/>
+  <links id="pf161169737052626" target="pf161169737052629" source="pf161169737052625" outcome="listarClientes"/>
+  <links id="pf161169737052627" target="pf161169737052631" source="pf161169737052625" outcome="salir"/>
+  <links id="pf161169737052518" target="pf161169737052511" source="pf161169737052629" outcome="crearFactura"/>
+  <links id="pf161169737052524" target="pf161169737052519" source="pf161169737052629" outcome="listarFactura"/>
+  <links id="pf161169737052628" target="pf161169737052625" source="pf161169737052629" outcome="crearCliente"/>
+  <links id="pf161169737052630" target="pf161169737052631" source="pf161169737052629" outcome="salir"/>
+  <links id="pf161169737052632" target="pf161169737052741" source="pf161169737052631" outcome="bodega1"/>
+  <links id="pf161169737052633" target="pf161169737052747" source="pf161169737052631" outcome="bodega2"/>
+  <links id="pf161169737052634" target="pf161169737052751" source="pf161169737052631" outcome="bodega3"/>
+  <links id="pf161169737052735" target="pf161169737052753" source="pf161169737052631" outcome="inicioAdmin"/>
+  <links id="pf16116973705257" target="pf16116973705241" source="pf161169737052631" outcome="inicioUsuario"/>
+  <links id="pf161169737052736" target="pf161169737052631" source="pf161169737052741" outcome="menuPrincial"/>
+  <links id="pf161169737052742" target="pf161169737052747" source="pf161169737052741" outcome="bodega2"/>
+  <links id="pf161169737052743" target="pf161169737052751" source="pf161169737052741" outcome="bodega3"/>
+  <links id="pf161169737052744" target="pf161169737052753" source="pf161169737052741" outcome="inicioAdmin"/>
+  <links id="pf16116973705258" target="pf16116973705241" source="pf161169737052741" outcome="inicioUsuario"/>
+  <links id="pf161169737052737" target="pf161169737052631" source="pf161169737052747" outcome="menuPrincial"/>
+  <links id="pf161169737052745" target="pf161169737052741" source="pf161169737052747" outcome="bodega1"/>
+  <links id="pf161169737052748" target="pf161169737052751" source="pf161169737052747" outcome="bodega3"/>
+  <links id="pf161169737052749" target="pf161169737052753" source="pf161169737052747" outcome="inicioAdmin"/>
+  <links id="pf16116973705259" target="pf16116973705241" source="pf161169737052747" outcome="inicioUsuario"/>
+  <links id="pf161169737052738" target="pf161169737052631" source="pf161169737052751" outcome="menuPrincial"/>
+  <links id="pf161169737052746" target="pf161169737052741" source="pf161169737052751" outcome="bodega1"/>
+  <links id="pf161169737052750" target="pf161169737052747" source="pf161169737052751" outcome="bodega2"/>
+  <links id="pf161169737052752" target="pf161169737052753" source="pf161169737052751" outcome="inicioAdmin"/>
+  <links id="pf161169737052510" target="pf16116973705241" source="pf161169737052751" outcome="inicioUsuario"/>
+  <links id="pf161169737052754" target="pf161169737052756" source="pf161169737052753" outcome="gestionGodegas"/>
+  <links id="pf161169737052739" target="pf161169737052631" source="pf161169737052753" outcome="salir"/>
+  <links id="pf161169737052755" target="pf161169737052753" source="pf161169737052756" outcome="informeGeneral"/>
+  <links id="pf161169737052740" target="pf161169737052631" source="pf161169737052756" outcome="salir"/>
+  <links id="pf161169751764857" target="pf161169751764858" source="pf16116973705241" outcome="GestionarPedidos"/>
+  <links id="pf161169755008459" target="pf161169751764858" source="pf161169737052511" outcome="GestionarPedidos"/>
+  <links id="pf161169755485060" target="pf161169751764858" source="pf161169737052519" outcome="GestionarPedidos"/>
+  <links id="pf161169755968261" target="pf161169751764858" source="pf161169737052625" outcome="GestionarPedidos"/>
+  <links id="pf161169760138862" target="pf161169751764858" source="pf161169737052629" outcome="GestionarPedidos"/>
+  <links id="pf16117670933692" target="pf16117670933696" source="pf16117670933691" outcome="crearFactura"/>
+  <links id="pf16117670933693" target="pf16117670933697" source="pf16117670933691" outcome="listarFactura"/>
+  <links id="pf16117670933694" target="pf16117670933698" source="pf16117670933691" outcome="crearCliente"/>
+  <links id="pf16117670933690" target="pf161169737052631" source="pf16117670933691" outcome="salir"/>
+  <links id="pf16117670933695" target="pf16117670933699" source="pf16117670933691" outcome="listarClientes"/>
+</pageflow:Pageflow>

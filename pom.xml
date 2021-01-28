@@ -1,0 +1,206 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>PracticaDeLaboratorio04-EJB-JSF-JPA-WS</groupId>
+  <artifactId>PracticaDeLaboratorio04-EJB-JSF-JPA-WS</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  
+  
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.2.3</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+        </configuration>
+      </plugin>
+      
+       <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <container>
+                        <containerId>glassfish5</containerId>
+                        <type>installed</type>
+                        <!-- Path to directory where glassfish is installed -->
+                        <home>C:\glassfish5</home>
+                    </container>
+                    <configuration>
+                        <type>existing</type>
+                        <!-- Path to domains directory -->
+                        <home>C:\glassfish5\glassfish\domains</home>
+                        <properties>
+                            <!-- Domain name where application will be deployed. -->
+                            <cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
+                            <!-- Glassfish user to authenticate -->
+                            <cargo.remote.username>admin</cargo.remote.username>
+                            <!-- Glassfish password to authenticate -->
+                            <cargo.remote.password></cargo.remote.password>
+                        </properties>
+                    </configuration>
+                </configuration>
+            </plugin>
+      
+    </plugins>
+  </build>
+  
+   <dependencies>
+   
+   <!-- Depencia de Glassfish 5.0.1 -->
+  	<dependency>
+		<groupId>org.glassfish.main.core</groupId>
+		<artifactId>glassfish</artifactId>
+		<version>5.0.1</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.eclipse/yasson -->
+	<dependency>
+		<groupId>org.eclipse</groupId>
+		<artifactId>yasson</artifactId>
+		<version>1.0.2</version>
+	</dependency>
+	
+	<!-- JERSEY dependencies -->
+	<dependency>		
+		<groupId>org.glassfish.jersey.core</groupId>
+		<artifactId>jersey-client</artifactId>
+		<version>2.27</version>
+	</dependency>	
+		
+	<dependency>
+		<groupId>org.glassfish.jersey.containers</groupId>
+		<artifactId>jersey-container-servlet</artifactId>
+		<version>2.27</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.glassfish.jersey.inject</groupId>
+		<artifactId>jersey-hk2</artifactId>
+		<version>2.27</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.22</version>
+	</dependency>
+
+	
+	<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+	<dependency>
+	    <groupId>org.primefaces</groupId>
+	    <artifactId>primefaces</artifactId>
+	    <version>6.1</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/javax.faces/javax.faces-api -->
+	<dependency>
+	    <groupId>javax.faces</groupId>
+	    <artifactId>javax.faces-api</artifactId>
+	    <version>2.3</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.eclipse.persistence/eclipselink -->
+    <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>eclipselink</artifactId>
+        <version>2.7.8</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api -->
+    <dependency>
+        <groupId>jakarta.persistence</groupId>
+        <artifactId>jakarta.persistence-api</artifactId>
+        <version>2.2.3</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+    <dependency>
+        <groupId>jstl</groupId>
+        <artifactId>jstl</artifactId>
+        <version>1.2</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.glassfish.web/jstl-impl -->
+    <dependency>
+        <groupId>org.glassfish.web</groupId>
+        <artifactId>jstl-impl</artifactId>
+        <version>1.2</version>
+        <scope>runtime</scope>
+    </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/javax.ejb/javax.ejb-api -->
+	<dependency>
+	    <groupId>javax.ejb</groupId>
+	    <artifactId>javax.ejb-api</artifactId>
+	    <version>3.2.2</version>
+	</dependency>
+
+	<dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+	
+	<!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	
+	 <!-- https://mvnrepository.com/artifact/javax.ws.rs/javax.ws.rs-api -->
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+	<!-- https://mvnrepository.com/artifact/javax.faces/javax.faces-api -->
+	<dependency>
+	    <groupId>javax.faces</groupId>
+	    <artifactId>javax.faces-api</artifactId>
+	    <version>2.3</version>
+	    <scope>provided</scope>
+	</dependency>
+
+	<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>4.0.1</version>
+	    <scope>provided</scope>
+	</dependency>
+	
+	
+	<dependency>
+	    <groupId>javax.json.bind</groupId>
+	    <artifactId>javax.json.bind-api</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	
+	
+  </dependencies>
+</project>

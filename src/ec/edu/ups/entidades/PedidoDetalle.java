@@ -38,6 +38,13 @@ public class PedidoDetalle implements Serializable {
 		this.setPedidoCabecera(pedidoCabecera);
 		this.setProducto(producto);
 	}
+	
+	public PedidoDetalle(int id, int cantidad, float total, Producto producto) {
+		this.setId(id);
+		this.setCantidad(cantidad);
+		this.setTotal(total);
+		this.setProducto(producto);
+	}
 
 	public int getId() {
 		return id;
@@ -57,6 +64,10 @@ public class PedidoDetalle implements Serializable {
 
 	public float getTotal() {
 		return total;
+	}
+	
+	public float calcularTotal(float cantidad, float precio) {
+		return cantidad*precio;
 	}
 
 	public void setTotal(float total) {

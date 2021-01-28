@@ -39,8 +39,7 @@ public class PedidoCabecera implements Serializable {
 		pedidosDetalle = new ArrayList<PedidoDetalle>();
 	}
 	
-	public PedidoCabecera(int id, Date fecha, float subtotal, float total, float iva, String estado, Persona persona) {
-		this.setId(id);
+	public PedidoCabecera(Date fecha, float subtotal, float total, float iva, String estado, Persona persona) {
 		this.setFecha(fecha);
 		this.setSubtotal(subtotal);
 		this.setTotal(total);

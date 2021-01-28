@@ -2,6 +2,7 @@ package ec.edu.ups.test;
 
 import java.io.Serializable;
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -140,7 +141,7 @@ public class CreacionDatos implements Serializable{
 		ejbPersona.create(persona2);
 		ejbPersona.create(persona3);
 		
-		PedidoCabecera pedCab = new PedidoCabecera(0, new Date(),(float) 400,(float) 500,(float) 0.12, "Enviado", persona3);
+		PedidoCabecera pedCab = new PedidoCabecera(new Date(),(float) 400,(float) 500,(float) 0.12, "Enviado", persona3);
 		PedidoDetalle pedDetalle = new PedidoDetalle(0, 2, 400, pedCab, pord2);
 		
 		ejbPedidoCabecera.create(pedCab);

@@ -59,7 +59,7 @@ public class ProductoFacade extends AbstractFacade<Producto> {
     	List<Producto> productos=new ArrayList<Producto>();
     	String consulta = "Select p From Producto p Where p.bodegas.id="+codigoBodega;
     	try {
-    		productos= em.createQuery(consulta).getResultList();
+    		productos= (List<Producto>)em.createQuery(consulta).getResultList();
     	}catch(Exception e) {
     		System.out.println(">>>Warning (ProductoFacade:getProductosPorBodega: )"+e.getMessage());
     	}
@@ -72,26 +72,61 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         return codigoProductos;
     }
     
-    public List<Categoria> getCategorias(int codigoBodega){
+    public List<Categoria> getCategorias(List<Producto> productos){
         categoriasList = new ArrayList<Categoria>();
-        List<Integer> codigosProductos = getProductosPorBodega(codigoBodega);
+        int cont = 0;
+      
         
-        System.out.println("Size codigos: "+codigosProductos.size());
+        for (Producto producto : productos) {
+        	
+        	Categoria cat = new Categoria(producto.getCategoria().getId(), producto.getCategoria().getNombre());
+        	
+        	for (Categoria car : categoriasList) {
+        		if (cat.getId() == car.getId()) {
+        			cont++;
+    			}
+			} 
+        	
+        	if (cont == 0) {
+    			categoriasList.add(cat);
+			}
+		}
         
-        if(!codigosProductos.isEmpty()){
-            codigosProductos.forEach(e->{
-                categoriasList.add(super.find(e).getCategoria());
-            });
-            
-            
-            Set<Categoria> categorias = new HashSet<>(categoriasList);
-            categoriasList.clear();
-            
-            categorias.forEach(e->{e.setProductos(null); categoriasList.add(e);});
-            
-            System.out.println("Size cate: "+categoriasList.size());
-            return categoriasList;
-        }else
-            return categoriasList;
+        return categoriasList;
     }
+    
+    public List<Categoria> getCategoriasProductos(List<Producto> productos){
+        categoriasList = new ArrayList<Categoria>();
+        int cont = 0;
+      
+        
+        for (Producto producto : productos) {
+        	
+        	Categoria cat = new Categoria(producto.getCategoria().getId(), producto.getCategoria().getNombre());
+        	
+        	for (Categoria car : categoriasList) {
+        		if (cat.getId() == car.getId()) {
+        			cont++;
+    			}
+			} 
+        	
+        	if (cont == 0) {
+    			categoriasList.add(cat);
+			}
+		}
+        
+     
+        for (Categoria cat : categoriasList) {
+        	List<Producto> prod = new ArrayList<Producto>();
+			for (Producto producto : productos) {
+				if (cat.getId() == producto.getCategoria().getId()) {
+					prod.add(producto);
+				}
+			}
+			cat.setProductos(prod);
+		}
+        
+        return categoriasList;
+    }
+    
 }

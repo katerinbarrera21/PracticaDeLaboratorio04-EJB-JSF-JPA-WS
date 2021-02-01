@@ -32,11 +32,11 @@ public class PedidoCabecera implements Serializable {
 	private Persona personaPedidos;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoCabecera")
-	private List<PedidoDetalle> pedidosDetalle;
+	private List<PedidoDetalle> pedidosDetalle = new ArrayList<PedidoDetalle>();;
 
 	public PedidoCabecera() {
 		super();
-		pedidosDetalle = new ArrayList<PedidoDetalle>();
+		
 	}
 	
 	public PedidoCabecera(Date fecha, float subtotal, float total, float iva, String estado, Persona persona) {
@@ -48,7 +48,30 @@ public class PedidoCabecera implements Serializable {
 		this.setIva(iva);
 		this.setEstado(estado);
 		this.setPersona(persona);
-		pedidosDetalle = new ArrayList<PedidoDetalle>();
+		
+	}
+
+	
+	
+	
+	public Persona getPersonaPedidos() {
+		return personaPedidos;
+	}
+
+	public void setPersonaPedidos(Persona personaPedidos) {
+		this.personaPedidos = personaPedidos;
+	}
+
+	public List<PedidoDetalle> getPedidosDetalle() {
+		return pedidosDetalle;
+	}
+
+	public void setPedidosDetalle(List<PedidoDetalle> pedidosDetalle) {
+		this.pedidosDetalle = pedidosDetalle;
+	}
+	
+	public void addPedidosDetalle(PedidoDetalle pedidoDetalle) {
+		this.pedidosDetalle.add(pedidoDetalle);
 	}
 
 	public int getId() {
@@ -107,16 +130,12 @@ public class PedidoCabecera implements Serializable {
 		this.personaPedidos = persona;
 	}
 
-	public List<PedidoDetalle> getPedidosDetale() {
-		return pedidosDetalle;
+	@Override
+	public String toString() {
+		return "PedidoCabecera [id=" + id + ", fecha=" + fecha + ", subtotal=" + subtotal + ", total=" + total
+				+ ", iva=" + iva + ", estado=" + estado + ", personaPedidos=" + personaPedidos + ", pedidosDetalle="
+				+ pedidosDetalle + "]";
 	}
 
-	public void setPedidosDetale(List<PedidoDetalle> pedidosDetale) {
-		this.pedidosDetalle = pedidosDetale;
-	}
-	
-	public void addPedidosDetale(PedidoDetalle pedidosDetale) {
-		this.pedidosDetalle.add(pedidosDetale);
-	}
    
 }

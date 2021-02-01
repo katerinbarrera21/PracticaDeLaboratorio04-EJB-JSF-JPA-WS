@@ -133,9 +133,9 @@ public class CreacionDatos implements Serializable{
 		ejbBodega.create(bodega2);
 		ejbBodega.create(bodega3);
 		
-		Persona persona = new Persona(1, "Juan", "Barrera","0106113301","Paute", "0980990592", "barrerajuan930@gmail.com", "5665", 'E');
-		Persona persona2 = new Persona(2, "Katy", "Barrera","0106114309","Paute", "0980990593", "katerinbarrera21@gmail.com", "5665", 'A');
-		Persona persona3 = new Persona(3, "John", "Chiqui","0106114302","Cuenca", "0980990592", "johnChiqui@gmail.com", "5665", 'C');
+		Persona persona = new Persona("Juan", "Barrera","0106113301","Paute", "0980990592", "barrerajuan930@gmail.com", "5665", 'E', "Activo");
+		Persona persona2 = new Persona("Katy", "Barrera","0106114309","Paute", "0980990593", "katerinbarrera21@gmail.com", "5665", 'A', "Activo");
+		Persona persona3 = new Persona("John", "Chiqui","0106114302","Cuenca", "0980990592", "johnChiqui@gmail.com", "5665", 'C', "Activo");
 		
 		ejbPersona.create(persona);
 		ejbPersona.create(persona2);
@@ -143,6 +143,7 @@ public class CreacionDatos implements Serializable{
 		
 		PedidoCabecera pedCab = new PedidoCabecera(new Date(),(float) 400,(float) 500,(float) 0.12, "Enviado", persona3);
 		PedidoDetalle pedDetalle = new PedidoDetalle(0, 2, 400, pedCab, pord2);
+		pedDetalle.setPedidoBodega(bodega);
 		
 		ejbPedidoCabecera.create(pedCab);
 		ejbPedidoDetalle.create(pedDetalle);

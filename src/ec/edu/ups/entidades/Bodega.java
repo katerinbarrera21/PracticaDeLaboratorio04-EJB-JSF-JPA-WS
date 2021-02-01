@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Entity implementation class for Entity: Bodega
@@ -41,6 +42,10 @@ public class Bodega implements Serializable {
 	    )
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Producto> productos;
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoBodega")
+	private List<PedidoDetalle> pedidos = new ArrayList<PedidoDetalle>();
 	
 	public Bodega(int id, String nombre, String Direccion, Ciudad ciudad) {
 		this.setId(id);
@@ -78,6 +83,21 @@ public class Bodega implements Serializable {
     }
 	
 	
+	
+	
+	
+	public List<PedidoDetalle> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<PedidoDetalle> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
+	public void addPedidos(PedidoDetalle pedido) {
+		this.pedidos.add(pedido);
+	}
+
 	public int getId() {
 		return id;
 	}

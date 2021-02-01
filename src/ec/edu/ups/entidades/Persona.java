@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,8 @@ public class Persona implements Serializable {
     private String correo;
     private String password;
     private char rol;
+    @Column(name = "estado", columnDefinition = "VARCHAR(10) DEFAULT 'Activo'")
+    private String estado;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
     private List<FacturaCabecera> facturasCab= new ArrayList<FacturaCabecera>();
@@ -54,6 +57,61 @@ public class Persona implements Serializable {
     }
     
     
+
+	public Persona(String nombre, String apellido, String cedula, String direccion, String telefono, String correo,
+			String password, char rol) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.cedula = cedula;
+		this.direccion = direccion;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.password = password;
+		this.rol = rol;
+	}
+
+
+
+	public Persona(String nombre, String apellido, String cedula, String direccion, String telefono, String correo,
+			String password, char rol, String estado) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.cedula = cedula;
+		this.direccion = direccion;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.password = password;
+		this.rol = rol;
+		this.estado = estado;
+	}
+
+
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+
+
+	public List<PedidoCabecera> getPersonaPedidos() {
+		return personaPedidos;
+	}
+
+
+
+	public void setPersonaPedidos(List<PedidoCabecera> personaPedidos) {
+		this.personaPedidos = personaPedidos;
+	}
+
+
 
 	public String getCedula() {
 		return cedula;

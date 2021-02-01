@@ -139,16 +139,16 @@
 		   			</p:column>
 			   		<p:column>
 		   				<f:facet name="header" id="proid">Detalle</f:facet>
-		   				<p:commandButton class="btn-primary" value="Ver" action="#{pedidosCabeceraBean.sacarDetalles(cabP)}" update="pedidoDetalle">
+		   				<p:commandButton class="btn-primary" value="Detalles" action="#{pedidosCabeceraBean.obtenerDetalles(cabP)}" update="pedidoCabecera pedidoDetalle">
 			    		</p:commandButton>
 		   			</p:column>
 					<p:column>
-						<f:facet name="header" id="proid">Cambiar Estado</f:facet>
+						<f:facet name="header" id="proid">Estado</f:facet>
 						<h:selectOneMenu value="#{pedidosCabeceraBean.estado}">
-							<f:selectItem itemValue="Receptado" itemLabel="Receptado" />
-							<f:selectItem itemValue="En proceso" itemLabel="En proceso" />
-							<f:selectItem itemValue="En camino" itemLabel="En camino" />
-							<f:selectItem itemValue="Finalizado" itemLabel="Finalizado" />
+							
+							<f:selectItem itemValue="En Proceso" itemLabel="Facturar Pedido" />
+							<f:selectItem itemValue="En camino" itemLabel="Enviar Pedido" />
+							<f:selectItem itemValue="Finalizado" itemLabel="Guardar Pedido" />
 						</h:selectOneMenu>
 						<p:commandButton class="btn-primary" value="Aceptar" action="#{pedidosCabeceraBean.cambiarEstado(cabP)}" update="pedidoCabecera"></p:commandButton>
 					</p:column>
@@ -169,7 +169,7 @@
             <div class="card">
             
               <div class="card-header">
-                <h4 class="card-title"> Detalles de la factura</h4>
+                <h4 class="card-title"> Detalles del Pedido</h4>
               </div>
               <div class="card-body">
               
@@ -179,6 +179,9 @@
 	   		<div>
 	   			<p:dataTable id="detalles" value="#{pedidosCabeceraBean.detalles}" var="d" styleClass="tabla" 
 		   			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+		   			<p:column>
+		   				<f:facet name="header" id="proid">Bodega</f:facet>#{d.pedidoBodega.nombre}
+		   			</p:column>
 		   			<p:column>
 		   				<f:facet name="header" id="proid">Producto</f:facet>#{d.producto.nombre}
 		   			</p:column>

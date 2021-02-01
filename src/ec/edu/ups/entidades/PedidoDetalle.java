@@ -24,7 +24,13 @@ public class PedidoDetalle implements Serializable {
 	@JoinColumn
 	private PedidoCabecera pedidoCabecera;
 	
+	
 	@ManyToOne
+	@JoinColumn
+	private Bodega pedidoBodega;
+	
+	@ManyToOne
+	@JoinColumn
 	private Producto producto;
 
 	public PedidoDetalle() {
@@ -89,4 +95,21 @@ public class PedidoDetalle implements Serializable {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
+
+	public Bodega getPedidoBodega() {
+		return pedidoBodega;
+	}
+
+	public void setPedidoBodega(Bodega pedidoBodega) {
+		this.pedidoBodega = pedidoBodega;
+	}
+
+	@Override
+	public String toString() {
+		return "PedidoDetalle [id=" + id + ", cantidad=" + cantidad + ", total=" + total + ", pedidoCabecera="
+				+ pedidoCabecera + ", pedidoBodega=" + pedidoBodega + ", producto=" + producto + "]";
+	}
+	
+	
+	
 }

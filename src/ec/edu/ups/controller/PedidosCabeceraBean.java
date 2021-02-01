@@ -14,10 +14,12 @@ import javax.inject.Named;
 import ec.edu.ups.EJB.FacturaCabeceraFacade;
 import ec.edu.ups.EJB.FacturaDetalleFacade;
 import ec.edu.ups.EJB.PedidoCabeceraFacade;
+import ec.edu.ups.EJB.ProductoFacade;
 import ec.edu.ups.entidades.FacturaCabecera;
 import ec.edu.ups.entidades.FacturaDetalle;
 import ec.edu.ups.entidades.PedidoCabecera;
 import ec.edu.ups.entidades.PedidoDetalle;
+import ec.edu.ups.entidades.Producto;
 
 @FacesConfig(version = FacesConfig.Version.JSF_2_3)
 @Named
@@ -31,49 +33,74 @@ public class PedidosCabeceraBean implements Serializable{
 	private FacturaCabeceraFacade ejbFacturaCabecera;
 	@EJB
 	private FacturaDetalleFacade ejbFacturaDetalle;
+	@EJB
+	private ProductoFacade ejbProducto;
 	
 	public static List<PedidoCabecera> cabeceras = new ArrayList<PedidoCabecera>();
 	private List<PedidoDetalle> detalles = new ArrayList<PedidoDetalle>();
 	private String cedula;
 	private String estado;
 	
+	
+	
 	@PostConstruct
 	public void init(){
 		cabeceras=ejbPedidoCabecera.pedidosCabeceraReves();
+		//detalles = new ArrayList<PedidoDetalle>();
 	}
 	
-	public void sacarDetalles(PedidoCabecera pedCabecera) {
-		detalles=pedCabecera.getPedidosDetale();
+	public void obtenerDetalles(PedidoCabecera pedCabecera) {
+		
+		System.out.println("Detalles>>>>>>>>>>>>.."+pedCabecera.getPedidosDetalle().size());
+		PedidoCabecera p =  ejbPedidoCabecera.find(pedCabecera.getId());
+		System.out.println("Detalles de p: >>>>>>>>>>>>.."+p.getPedidosDetalle().size());
+		detalles = p.getPedidosDetalle(); 
 	}
 	
 	public void cambiarEstado(PedidoCabecera pedCabecera) {
+		
 		if(pedCabecera.getEstado().equals("Finalizado")!=true) {
+			
 			pedCabecera.setEstado(estado);
 			ejbPedidoCabecera.edit(pedCabecera);
-			if(pedCabecera.getEstado().equals("Receptado")==true) {
-				if(estado.equals("Receptado")) {
-					FacturaCabecera facturaCabecera = new FacturaCabecera(
-							0, 
-							new Date(), 
-							pedCabecera.getSubtotal(), 
-							pedCabecera.getTotal(), 
-							pedCabecera.getIva(), 
-							'A', 
-							pedCabecera.getPersona());
-					ejbFacturaCabecera.create(facturaCabecera);
-					List<FacturaDetalle> facturasDetalle = new ArrayList<FacturaDetalle>();
-					for(PedidoDetalle pD : pedCabecera.getPedidosDetale()) {
-						FacturaDetalle facturaDetalle = new FacturaDetalle(
-								0, 
-								pD.getCantidad(), 
-								pD.getTotal(), 
-								facturaCabecera, 
-								pD.getProducto());
-						facturasDetalle.add(facturaDetalle);
-						ejbFacturaDetalle.create(facturaDetalle);
-					}
+			
+			
+			if(pedCabecera.getEstado().equals("En Proceso")==true) {
+				
+				
+				FacturaCabecera facturaCabecera = new FacturaCabecera(0, new Date(), pedCabecera.getSubtotal(), 
+																	pedCabecera.getTotal(), pedCabecera.getIva(), 
+																	'A', pedCabecera.getPersona());
+				
+				List<FacturaDetalle> facturasDetalle = new ArrayList<FacturaDetalle>();
+				
+				for(PedidoDetalle pedido : pedCabecera.getPedidosDetalle()) {
 					
+					
+					
+					FacturaDetalle facturaDetalle = new FacturaDetalle(0, pedido.getCantidad(), pedido.getTotal(), 
+																	 facturaCabecera, pedido.getProducto());
+				
+					
+					facturasDetalle.add(facturaDetalle);
 				}
+				
+				for (PedidoDetalle pedido : pedCabecera.getPedidosDetalle()) {
+
+					for (int i = 0; i < pedido.getPedidoBodega().getProductos().size(); i++) {
+						
+						if (pedido.getProducto().getId() == pedido.getPedidoBodega().getProductos().get(i).getId()) {
+							int nuevoStock=pedido.getPedidoBodega().getProductos().get(i).getStock()-pedido.getCantidad();
+							Producto prod = pedido.getPedidoBodega().getProductos().get(i);
+							prod.setStock(nuevoStock);
+							ejbProducto.edit(prod);
+						}
+					}
+				}
+				
+				facturaCabecera.setFacturasDetalle(facturasDetalle);
+				ejbFacturaCabecera.create(facturaCabecera);
+					
 			}
 		}
 	}

@@ -28,7 +28,7 @@ public class PedidoCabeceraFacade  extends AbstractFacade<PedidoCabecera>{
     
     public List<PedidoCabecera> pedidosCabeceraReves(){
     	List<PedidoCabecera> cabeceras=new ArrayList<PedidoCabecera>();
-    	String consulta = "Select pC From PedidoCabecera pC order by pc.id desc";
+    	String consulta = "Select p From PedidoCabecera p where p.estado != 'Finalizado'";
     	try {
     		cabeceras = em.createQuery(consulta).getResultList();
     	}catch(Exception e) {

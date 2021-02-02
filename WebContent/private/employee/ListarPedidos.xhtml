@@ -27,21 +27,21 @@
     <style type="text/css">
     	#contenedorDetalles{
 			position: fixed;
-			width:52%;
-			margin-left: 62%;
+			width:90%;
+			margin-left: 52%;
 		}
     </style>
 </h:head>
 
 <h:body>
     <div class="wrapper ">
-
+     
         <div class="main-panel" id="main-panel" style="width:calc(100%)">
             <!-- Navbar -->
 
             <h:form id="formGestionClientes">
                 <nav class="navbar navbar-expand-lg navbar-transparent  bg-primary  navbar-absolute">
-                    <div class="container-fluid">
+                    <div class="container-fluid" style="background: #707d0b; padding: 17px;">
                         <div class="navbar-wrapper">
                             <div class="navbar-toggle">
                                 <button type="button" class="navbar-toggler">
@@ -50,7 +50,7 @@
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
                             </div>
-                            <a class="navbar-brand" href="#Floro">Empleado - Listar Facturas</a>
+                            <a class="navbar-brand" style="font-size: 32px; color: #e89102; background: #4d5602; padding: 73px 122px 8px 10px;">Empleado - Listar Pedidos</a>
                         </div>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -93,123 +93,121 @@
             <!-- End Navbar -->
             <div class="panel-header panel-header-sm">
             </div>
+			
 			<div class="content">
-		<div id="contenedorIzquierda">	
-        <div class="row">
-          <div class="col-md-6">
-            <div class="card  card-tasks">
-              <div class="card-header ">
-              </div>
-              <div class="card-body ">
-                <div class="table-full-width table-responsive">
-                <div id="filtros">
-	    	<h:form>
-		    	<h3>Buscar por cedula de cliente</h3>
-		    	<p:inputText class="form-control" id="ced" value="#{pedidosCabeceraBean.cedula}" type="text"/>
-		    	<p:commandButton class=" btn-primary btn-block" value="Buscar" action="#{pedidosCabeceraBean.filtrarFacturaCabecera}"  update="pedidoCabecera"/>
-		   
-		    </h:form>
-		    
-	    </div>
-	    
-	    <h:form id="pedidoCabecera">
-	    	<div id="contenedorCabeceras">
-	    		<p:dataTable value="#{pedidosCabeceraBean.cabeceras}" var="cabP" 
-		    		styleClass="tabla" headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Codigo</f:facet>#{cabP.id}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Fecha</f:facet>#{cabP.fecha}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Cliente</f:facet>#{cabP.persona.getNombre()} #{cabP.persona.getApellido()}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Subtotal</f:facet>#{cabP.subtotal}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">IVA</f:facet>#{cabP.iva}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Total</f:facet>#{cabP.total}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Estado</f:facet>#{cabP.estado}
-		   			</p:column>
-			   		<p:column>
-		   				<f:facet name="header" id="proid">Detalle</f:facet>
-		   				<p:commandButton class="btn-primary" value="Detalles" action="#{pedidosCabeceraBean.obtenerDetalles(cabP)}" update="pedidoCabecera pedidoDetalle">
-			    		</p:commandButton>
-		   			</p:column>
-					<p:column>
-						<f:facet name="header" id="proid">Estado</f:facet>
-						<h:selectOneMenu value="#{pedidosCabeceraBean.estado}">
-							
-							<f:selectItem itemValue="En Proceso" itemLabel="Facturar Pedido" />
-							<f:selectItem itemValue="En camino" itemLabel="Enviar Pedido" />
-							<f:selectItem itemValue="Finalizado" itemLabel="Guardar Pedido" />
-						</h:selectOneMenu>
-						<p:commandButton class="btn-primary" value="Aceptar" action="#{pedidosCabeceraBean.cambiarEstado(cabP)}" update="pedidoCabecera"></p:commandButton>
-					</p:column>
-		   		</p:dataTable>
-	    	</div>
-	   	</h:form>
-                
-                
-                
-                </div>
-              </div>
-    
-            </div>
-          </div>
+				<div class="row">
+		          	<div style="width: 100%;">
+		            	<div class="card  card-tasks">
+		              		<div class="card-header ">
+		         			</div>
+		              		
+		              		<div class="card-body ">
+		                		<div class="table-full-width table-responsive">
+		                			
+	    							<h:form id="pedidoCabecera">
+	    								
+							    			<p:dataTable value="#{pedidosCabeceraBean.cabeceras}" var="cabP" 
+									    		styleClass="tabla" headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Codigo</f:facet>#{cabP.id}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Fecha</f:facet>#{cabP.fecha}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Cliente</f:facet>#{cabP.persona.getNombre()} #{cabP.persona.getApellido()}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Subtotal</f:facet>#{cabP.subtotal}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">IVA</f:facet>#{cabP.iva}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Total</f:facet>#{cabP.total}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Estado</f:facet>#{cabP.estado}
+									   			</p:column>
+										   		<p:column>
+									   				<f:facet name="header" id="proid">Detalle</f:facet>
+									   				<p:commandButton class="btn-primary" value="Detalles" action="#{pedidosCabeceraBean.obtenerDetalles(cabP)}" update="pedidoCabecera pedidoDetalle">
+										    		</p:commandButton>
+									   			</p:column>
+									   			
+									   			
+									   			<p:column>
+										   			<f:facet name="header" id="proid">Facturar Pedido</f:facet>
+                                                    <p:commandButton class="btn-primary" value="Facturar" actionListener="#{pedidosCabeceraBean.facturarPedido(cabP)}" update="pedidoCabecera">
+                                                    </p:commandButton>
+                                                </p:column>
+                                                
+                                                
+                                                <p:column>
+                                                	<f:facet name="header" id="proid">Enviar Pedido</f:facet>
+                                                    <p:commandButton class="btn-primary" value="Enviar" actionListener="#{pedidosCabeceraBean.enviarPedido(cabP)}" update="pedidoCabecera">
+                                                    </p:commandButton>
+                                                </p:column>
+                                                
+                                                
+                                                <p:column>
+                                                	<f:facet name="header" id="proid">Guardar Pedido</f:facet>
+                                                    <p:commandButton class="btn-primary" value="Guardar" actionListener="#{pedidosCabeceraBean.finalizarPedido(cabP)}" update="pedidoCabecera">
+                                                    </p:commandButton>
+                                                </p:column>
+									   			
+												
+									   		</p:dataTable>
+							    		
+							   		</h:form>
+                				</div>
+              				</div>
+            			</div>
+          			</div>
           
-         <div id="contenedorDetalles"> 
-          <div class="col-md-6">
-            <div class="card">
-            
-              <div class="card-header">
-                <h4 class="card-title"> Detalles del Pedido</h4>
-              </div>
-              <div class="card-body">
-              
-              
-              
-              <h:form id="pedidoDetalle">
-	   		<div>
-	   			<p:dataTable id="detalles" value="#{pedidosCabeceraBean.detalles}" var="d" styleClass="tabla" 
-		   			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Bodega</f:facet>#{d.pedidoBodega.nombre}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Producto</f:facet>#{d.producto.nombre}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Cantidad</f:facet>#{d.cantidad}
-		   			</p:column>
-		   			<p:column>
-		   				<f:facet name="header" id="proid">Total</f:facet>#{d.total}
-		   			</p:column>
-		   		</p:dataTable>
-	   		</div>
-	    </h:form>	
-               
-              
-              
-              </div>
-            </div>
-          </div>
-         </div> 
-        </div>
-        </div>
-      </div>
-
-
-
-        </div>
-    </div>
-
+         			
+         			<div class="row" style="width: 100%;"> 
+          				<div>
+            				<div class="card">
+              					<div class="card-header">
+                					<h4 class="card-title"> Detalles del Pedido</h4>
+              					</div>
+              					
+              					<div class="card-body">
+              						<h:form id="pedidoDetalle">
+	   							
+			   							<div>
+								   			<p:dataTable id="detalles" value="#{pedidosCabeceraBean.detalles}" var="d" styleClass="tabla" 
+									   			headerClass="cabeceraTabla" rowClasses="filaPar,filaImpar">
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Bodega</f:facet>#{d.pedidoBodega.nombre}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Producto</f:facet>#{d.producto.nombre}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Cantidad</f:facet>#{d.cantidad}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Precio</f:facet>#{d.producto.precio}
+									   			</p:column>
+									   			<p:column>
+									   				<f:facet name="header" id="proid">Total</f:facet>#{d.total}
+									   			</p:column>
+									   		</p:dataTable>
+								   		</div>
+	    							</h:form>	
+              					</div>
+            				</div>
+          				</div>
+         			</div> 
+         			
+         			
+        		</div>
+        	</div>
+      	</div>
+	</div>
+    
     <!--   Core JS Files   -->
 
    	<script src="/PracticaDeLaboratorio04-EJB-JSF-JPA-WS/resources/assets/js/core/jquery.min.js"></script>

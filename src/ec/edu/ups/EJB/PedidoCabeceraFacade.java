@@ -39,7 +39,7 @@ public class PedidoCabeceraFacade  extends AbstractFacade<PedidoCabecera>{
     
     public List<PedidoCabecera> pedidosCabeceraFiltrada(String cedula){
     	List<PedidoCabecera> cabeceras=new ArrayList<PedidoCabecera>();
-    	String consulta = "Select pC From PedidoCabecera pC pc.persona.cedula='"+cedula+"' order by pc.id desc";
+    	String consulta = "Select pC From PedidoCabecera pC where pc.persona.cedula='"+cedula+"' order by pc.id desc";
     	try {
     		cabeceras = em.createQuery(consulta).getResultList();
     	}catch(Exception e) {
@@ -47,6 +47,26 @@ public class PedidoCabeceraFacade  extends AbstractFacade<PedidoCabecera>{
     	}
     	return cabeceras;
     }
+    
+    
+    @SuppressWarnings("unchecked")
+	public List<PedidoDetalle> pedidosDetalleCabecera(int idCab){
+    	
+    	List<PedidoDetalle> detalles=new ArrayList<PedidoDetalle>();
+    	
+    	String consulta = "Select p From PedidoDetalle p Where p.pedidoCabecera.id="+idCab;
+    	try {
+    		detalles =  (List<PedidoDetalle>) em.createQuery(consulta).getResultList();
+    	}catch(Exception e) {
+    		System.out.println(">>>Warning (pedidosDetalleCabecera: )"+e.getMessage());
+    	}
+    	
+    	System.out.println("Detalles recuperados: "+detalles.size());
+    	
+    	return detalles;
+    }
+    
+    
     
     public float calcularSubtotal(List<PedidoDetalle> pedidosDetalles) {
 		float cont = (float) 0.0;
@@ -61,5 +81,8 @@ public class PedidoCabeceraFacade  extends AbstractFacade<PedidoCabecera>{
     	BigDecimal bigDecimal = new BigDecimal(subtotal*iva).setScale(2, RoundingMode.UP);
     	return bigDecimal.floatValue();
 	}
+    
+    
+    
     
 }

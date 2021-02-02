@@ -139,7 +139,9 @@ public class PedidoResource {
     	        
     	        pedido.setSubtotal(subtotal);
     	        pedido.setTotal(pedido.getSubtotal()+(pedido.getIva()*pedido.getSubtotal()));
-    	       
+    	        
+    	        detalle.setPedidoCabecera(pedido);
+    	        
     	        pedidoCabeceraFacade.create(pedido);
     	        pedidoDetalleFacade.create(detalle);
     		}
@@ -313,112 +315,37 @@ public class PedidoResource {
     
     }
     
-    
-
-    /*
-
-
-
-
-
-			            
-
-
-
-
-
-
-
-
-
-
-	
-    //SCORPION CODE ENDS
-
     @POST
-    @Path("/create")
-    @Produces(MediaType.TEXT_PLAIN)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response createPedido(@FormParam("personaId") String id, @FormParam("productos") String productos, @FormParam("cantidades") String cantidades) throws Exception{
-        GregorianCalendar currentDate = getCurrentDate();
-        Persona persona = personaFacade.find(id);
-        Pedido pedido = new Pedido("ENVIADO", currentDate, persona, null);
-        pedidoFacade.create(pedido);
-        pedido = pedidoFacade.getUltimoPedido(persona, currentDate);
-
-        String[] productosArray = productos.split(";");
-        String[] cantidadesArray = cantidades.split(";");
-
-        FacturaCabecera facturaCabecera = new FacturaCabecera(currentDate, 'N', 0, 0, 0, 0, null, persona, pedido);
-        facturaCabeceraFacade.create(facturaCabecera);
-
-        List<FacturaDetalle> detalleList = new ArrayList<>();
-
-        for (int i = 0; i < productosArray.length; i++) {
-            Producto producto = productoFacade.find(Integer.parseInt(productosArray[i]));
-            producto.setStock(producto.getStock() - Integer.parseInt(cantidadesArray[i]));
-            FacturaDetalle facturaDetalle = new FacturaDetalle(Integer.parseInt(cantidadesArray[i]),
-                    (Integer.parseInt(cantidadesArray[i])*producto.getPrecioVenta()), facturaCabecera, producto);
-            detalleList.add(facturaDetalle);
-        }
-        double [] totalSubtotalIva = getTotalSubtotalIva(detalleList);
-        facturaCabecera.setListaFacturasDetalles(detalleList);
-        facturaCabecera.setTotal(totalSubtotalIva[0]);
-        facturaCabecera.setSubtotal(totalSubtotalIva[1]);
-        facturaCabecera.setIva_total(totalSubtotalIva[2]);
-
-        pedido.setFacturaCabecera(facturaCabecera);
-        pedidoFacade.edit(pedido);
-
-        return Response.ok("OK!" + id + " <--> " + productos)
-                .header("Access-Control-Allow-Origins", "*")
-                .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-                .build();
-    }
-
-    private double subtotal, iva_total;
-    private double[] getTotalSubtotalIva(List<FacturaDetalle> detalleList){
-        subtotal = 0;
-        iva_total = 0;
-        detalleList.forEach(facturaDetalle -> {
-            Producto producto = facturaDetalle.getProducto();
-            double precioVenta = producto.getPrecioVenta()*facturaDetalle.getCantidad();
-            subtotal += (producto.getIva() == 'S') ? (precioVenta-precioVenta*0.12) : precioVenta;
-            iva_total += (producto.getIva() == 'S') ? precioVenta*0.12 : 0;
-        });
-        return new double[]{subtotal+iva_total, subtotal, iva_total};
-    }
-
-    private GregorianCalendar getCurrentDate() throws Exception{
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date date = dateFormat.parse(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(date);
-        return calendar;
-    }
-
-    @POST
-    @Path("/list")
+    @Path("/listarPedidos")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-
-    public Response getPedidos(@FormParam("persona_id") String personaId) {
-
-        Jsonb jsonb = JsonbBuilder.create();
-        Persona persona = personaFacade.find(personaId);
-        List<Pedido> pedidoList = pedidoFacade.findByPedidosId(persona);
-
-        try {
-            List<Pedido> pedidos = Pedido.serializePedidos(pedidoList);
-            return Response.ok(jsonb.toJson(pedidos))
-                    .header("Access-Control-Allow-Origins", "*")
-                    .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-                    .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-                    .build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("Error al obtener las bodegas ->" + e.getMessage()).build();
-        }
+    public Response pedidosEstados(@FormParam("cedula") String cedula) {
+	
+    	Persona cliente = personaFacade.buscarPorCedula(cedula);
+    	
+    	List<PedidoCabecera> pedido = new ArrayList<PedidoCabecera>();
+    	
+    	
+    	
+    	for (PedidoCabecera pedidoCabecera : cliente.getPersonaPedidos()) {
+    		
+    		Persona p = new Persona(pedidoCabecera.getPersona().getNombre(), pedidoCabecera.getPersona().getApellido(), pedidoCabecera.getPersona().getCedula()
+    								, pedidoCabecera.getPersona().getDireccion(), pedidoCabecera.getPersona().getTelefono()
+    								, pedidoCabecera.getPersona().getCorreo(), pedidoCabecera.getPersona().getPassword(), pedidoCabecera.getPersona().getRol());
+    		
+			PedidoCabecera ped = new PedidoCabecera(pedidoCabecera.getFecha(), pedidoCabecera.getSubtotal(), pedidoCabecera.getTotal()
+									, pedidoCabecera.getIva(), pedidoCabecera.getEstado(), p);
+			
+			pedido.add(ped);
+		}
+    	
+    	
+    	Jsonb jsonb = JsonbBuilder.create();
+    	return Response.status(201).entity(jsonb.toJson(pedido))
+    		.header("Access-Control-Allow-Origin", "*")
+    		.header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+    		.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE").build();
     }
-    */
+
+   
 }

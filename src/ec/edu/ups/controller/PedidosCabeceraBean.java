@@ -1,13 +1,16 @@
 package ec.edu.ups.controller;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.annotation.FacesConfig;
 import javax.inject.Named;
 
@@ -39,9 +42,6 @@ public class PedidosCabeceraBean implements Serializable{
 	public static List<PedidoCabecera> cabeceras = new ArrayList<PedidoCabecera>();
 	private List<PedidoDetalle> detalles = new ArrayList<PedidoDetalle>();
 	private String cedula;
-	private String estado;
-	
-	
 	
 	@PostConstruct
 	public void init(){
@@ -52,67 +52,81 @@ public class PedidosCabeceraBean implements Serializable{
 	public void obtenerDetalles(PedidoCabecera pedCabecera) {
 		
 		System.out.println("Detalles>>>>>>>>>>>>.."+pedCabecera.getPedidosDetalle().size());
-		PedidoCabecera p =  ejbPedidoCabecera.find(pedCabecera.getId());
-		System.out.println("Detalles de p: >>>>>>>>>>>>.."+p.getPedidosDetalle().size());
-		detalles = p.getPedidosDetalle(); 
+		detalles = ejbPedidoCabecera.pedidosDetalleCabecera(pedCabecera.getId()); 
 	}
 	
-	public void cambiarEstado(PedidoCabecera pedCabecera) {
-		
-		if(pedCabecera.getEstado().equals("Finalizado")!=true) {
-			
-			pedCabecera.setEstado(estado);
-			ejbPedidoCabecera.edit(pedCabecera);
-			
-			
-			if(pedCabecera.getEstado().equals("En Proceso")==true) {
-				
-				
-				FacturaCabecera facturaCabecera = new FacturaCabecera(0, new Date(), pedCabecera.getSubtotal(), 
-																	pedCabecera.getTotal(), pedCabecera.getIva(), 
-																	'A', pedCabecera.getPersona());
-				
-				List<FacturaDetalle> facturasDetalle = new ArrayList<FacturaDetalle>();
-				
-				for(PedidoDetalle pedido : pedCabecera.getPedidosDetalle()) {
-					
-					
-					
-					FacturaDetalle facturaDetalle = new FacturaDetalle(0, pedido.getCantidad(), pedido.getTotal(), 
-																	 facturaCabecera, pedido.getProducto());
-				
-					
-					facturasDetalle.add(facturaDetalle);
-				}
-				
-				for (PedidoDetalle pedido : pedCabecera.getPedidosDetalle()) {
+	
+	public void finalizarPedido(PedidoCabecera pedCabecera) {
 
-					for (int i = 0; i < pedido.getPedidoBodega().getProductos().size(); i++) {
-						
-						if (pedido.getProducto().getId() == pedido.getPedidoBodega().getProductos().get(i).getId()) {
-							int nuevoStock=pedido.getPedidoBodega().getProductos().get(i).getStock()-pedido.getCantidad();
-							Producto prod = pedido.getPedidoBodega().getProductos().get(i);
-							prod.setStock(nuevoStock);
-							ejbProducto.edit(prod);
-						}
-					}
+		if(pedCabecera.getEstado().equals("Finalizado")!=true) {
+			if (pedCabecera.getEstado().equals("En Proceso")!=true) {
+				if (pedCabecera.getEstado().equals("En camino")==true) {
+
+					pedCabecera.setEstado("Finalizado");
+					ejbPedidoCabecera.edit(pedCabecera);
+
 				}
-				
-				facturaCabecera.setFacturasDetalle(facturasDetalle);
-				ejbFacturaCabecera.create(facturaCabecera);
-					
 			}
 		}
 	}
 	
-	public void filtrarFacturaCabecera() {
-		System.out.println("si esta entrando");
-		cabeceras=ejbPedidoCabecera.pedidosCabeceraFiltrada(cedula);
-		if(cabeceras==null || cabeceras.size() == 0) {
-			System.out.println("no consigue nada");
-			cabeceras=ejbPedidoCabecera.pedidosCabeceraReves();
+	public void enviarPedido(PedidoCabecera pedCabecera) {
+
+		if(pedCabecera.getEstado().equals("Finalizado")!=true) {
+			
+			if (pedCabecera.getEstado().equals("En Proceso")==true) {
+
+				pedCabecera.setEstado("En camino");
+				ejbPedidoCabecera.edit(pedCabecera);
+
+			}
+			
 		}
 	}
+	
+	public void facturarPedido(PedidoCabecera pedCabecera) {
+		
+		if(pedCabecera.getEstado().equals("Finalizado")!=true ) {
+			
+			if (pedCabecera.getEstado().equals("En camino")!= true) {
+				
+				pedCabecera.setEstado("En Proceso");
+				ejbPedidoCabecera.edit(pedCabecera);
+				
+				PedidoCabecera cab = ejbPedidoCabecera.find(pedCabecera.getId());
+				FacturaCabecera facturaCabecera = new FacturaCabecera(0, new Date(), cab.getSubtotal(), 
+																	cab.getTotal(), cab.getIva(), 
+																	'A', cab.getPersona());
+				ejbFacturaCabecera.create(facturaCabecera);
+
+				
+				List<FacturaDetalle> facturasDetalle = new ArrayList<FacturaDetalle>();
+				
+				for(PedidoDetalle pedido : ejbPedidoCabecera.pedidosDetalleCabecera(cab.getId())) {
+				
+					int newStock = pedido.getProducto().getStock() - pedido.getCantidad();
+					Producto pro = pedido.getProducto();
+					pro.setStock(newStock);
+					ejbProducto.edit(pro);
+					
+					
+					FacturaDetalle facturaDetalle = new FacturaDetalle(0, pedido.getCantidad(), pedido.getTotal(), 
+																	 facturaCabecera, pro);
+				
+					facturasDetalle.add(facturaDetalle);
+					ejbFacturaDetalle.create(facturaDetalle);
+				}
+				
+				
+				facturaCabecera.setFacturasDetalle(facturasDetalle);
+				ejbFacturaCabecera.edit(facturaCabecera);
+			}
+		}
+		
+	}
+	
+
+
 
 	public PedidoCabeceraFacade getEjbPedidoCabecera() {
 		return ejbPedidoCabecera;
@@ -146,12 +160,6 @@ public class PedidosCabeceraBean implements Serializable{
 		this.cedula = cedula;
 	}
 
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+	
 	
 }

@@ -51,7 +51,13 @@ public class ClienteResource {
     @Path("/crearCuenta")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response crearCuenta(@FormParam("correo") String correo, @FormParam("password") String password, @FormParam("cedula") String cedula, @FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("direccion") String direccion,@FormParam("telefono") String telefono) {		
+    public Response crearCuenta(@FormParam("correo") String correo, 
+    							@FormParam("password") String password, 
+    							@FormParam("cedula") String cedula, 
+    							@FormParam("nombre") String nombre, 
+    							@FormParam("apellido") String apellido, 
+    							@FormParam("direccion") String direccion,
+    							@FormParam("telefono") String telefono) {		
     	
     	Persona per = ejbPersona.buscarPorCedula(cedula);
     	

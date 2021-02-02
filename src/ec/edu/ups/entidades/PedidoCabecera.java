@@ -32,7 +32,7 @@ public class PedidoCabecera implements Serializable {
 	private Persona personaPedidos;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pedidoCabecera")
-	private List<PedidoDetalle> pedidosDetalle = new ArrayList<PedidoDetalle>();;
+	private List<PedidoDetalle> pedidosDetalle = new ArrayList<PedidoDetalle>();
 
 	public PedidoCabecera() {
 		super();
